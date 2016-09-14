@@ -1,3 +1,5 @@
+package TutorialExamples
+
 import Chisel._
 
 class GCD extends Module {
@@ -35,6 +37,7 @@ class GCDTests(c: GCD) extends Tester(c) {
   expect(c.io.z, z)
 }
 
+/*
 object GCDMain {
   def main(args: Array[String]): Unit = {
     val tutArgs = args.slice(1, args.length)
@@ -43,4 +46,4 @@ object GCDMain {
         c => new GCDTests(c)
       }
   }
-}
+}*/
