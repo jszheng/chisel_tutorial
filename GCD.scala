@@ -1,26 +1,21 @@
+// See LICENSE.txt for license details.
 package TutorialExamples
 
 import Chisel._
 
 class GCD extends Module {
   val io = new Bundle {
-    val a = UInt(INPUT, 16)
-    val b = UInt(INPUT, 16)
-    val e = Bool(INPUT)
-    val z = UInt(OUTPUT, 16)
-    val v = Bool(OUTPUT)
+    val a  = UInt(INPUT,  16)
+    val b  = UInt(INPUT,  16)
+    val e  = Bool(INPUT)
+    val z  = UInt(OUTPUT, 16)
+    val v  = Bool(OUTPUT)
   }
-  val x = Reg(UInt())
-  val y = Reg(UInt())
-  when(x > y) {
-    x := x - y
-  }
-  unless(x > y) {
-    y := y - x
-  }
-  when(io.e) {
-    x := io.a; y := io.b
-  }
+  val x  = Reg(UInt())
+  val y  = Reg(UInt())
+  when   (x > y) { x := x - y }
+  unless (x > y) { y := y - x }
+  when (io.e) { x := io.a; y := io.b }
   io.z := x
   io.v := y === UInt(0)
 }
@@ -36,14 +31,3 @@ class GCDTests(c: GCD) extends Tester(c) {
   } while (t <= 1 || peek(c.io.v) == 0)
   expect(c.io.z, z)
 }
-
-/*
-object GCDMain {
-  def main(args: Array[String]): Unit = {
-    val tutArgs = args.slice(1, args.length)
-    val res =
-      chiselMainTest(tutArgs, () => Module(new GCD())) {
-        c => new GCDTests(c)
-      }
-  }
-}*/
